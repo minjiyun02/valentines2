@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: lightblue;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+        .fish {
+            width: 150px;
+            position: absolute;
+            transition: transform 2s ease-in-out;
+            cursor: pointer;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bradley Hand', cursive;
+            font-size: 2em;
+            font-weight: bold;
+            color: red;
+            display: none;
+        }
+        .bubble {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+            font-family: 'Bradley Hand', cursive;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        .counter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: 'Bradley Hand', cursive;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="message" id="valentineMessage">Will you be my valentine?</div>
+    <div class="counter" id="counter">Total fish caught: 0</div>
+    <img src="image.png" alt="Fish" class="fish" id="fish">
+    <div class="bubble" id="bubble">Catch me to say no :(</div>
+    <script>
+        let firstClick = true;
+        let secondClick = false;
+        document.getElementById("fish").addEventListener("click", function() {
+            let fish = this;
+            let bubble = document.getElementById("bubble");
+            let counter = document.getElementById("counter");
+            let maxX = window.innerWidth - fish.clientWidth;
+            let maxY = window.innerHeight - fish.clientHeight;
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
+            fish.style.left = `${randomX}px`;
+            fish.style.top = `${randomY}px`;
+            
+            bubble.style.left = `${randomX + 75}px`;
+            bubble.style.top = `${randomY - 30}px`;
+            
+            if (firstClick) {
+                document.getElementById("valentineMessage").style.display = "block";
+                bubble.style.display = "block";
+                firstClick = false;
+                secondClick = true;
+            } else if (secondClick) {
+                counter.style.display = "block";
+                secondClick = false;
+            }
+        });
+    </script>
+</body>
+</html>
